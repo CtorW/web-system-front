@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/style.css">
+    <link rel="stylesheet" href="src/style.css">
 </head>
 <body class="w-full min-h-screen">
 
@@ -37,6 +37,6 @@
     <div id="app-container" class="hidden h-screen w-full p-4 bg-[var(--md-sys-color-surface)]"></div>
     
     <div id="user-modal" class="modal-overlay"><div class="modal-panel"><h2 id="modal-title" class="text-2xl font-bold mb-6"></h2><form onsubmit="handleSaveUser(event)"><div class="form-group"><input type="text" id="modal-name" class="form-input" placeholder=" " required><label class="form-label">Full Name</label></div><div class="form-group mt-6"><input type="email" id="modal-email" class="form-input" placeholder=" " required><label class="form-label">Email</label></div><div class="mt-6"><label>Role</label><select id="modal-role" class="w-full p-2 mt-1 rounded-md border border-[var(--md-sys-color-outline)]"><option>Student</option><option>Faculty</option></select></div><div class="flex justify-end gap-4 mt-8"><button type="button" onclick="closeUserModal()" class="px-6 py-2 rounded-full hover:bg-[var(--md-sys-color-surface-variant)]">Cancel</button><button type="submit" class="px-6 py-2 bg-[var(--md-sys-color-primary)] text-white rounded-full btn-ripple">Save</button></div></form></div></div>
-    <script src="/src/main.js"></script>
+    <script src="src/main.js"></script>
 </body>
 </html>
