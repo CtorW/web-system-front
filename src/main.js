@@ -16,7 +16,7 @@
 
         // ========= ELEMENT REFERENCES =========
         const getEl = (id) => document.getElementById(id);
-        
+
         // ========= LANDING PAGE FLOW LOGIC =========
         const showRoleSelection = () => { getEl('role-selection-panel').classList.remove('hidden'); getEl('auth-choice-panel').classList.add('hidden'); getEl('auth-forms-panel').classList.add('hidden'); };
         const showAuthChoice = (role) => { currentPortalRole = role || currentPortalRole; getEl('auth-choice-title').innerText = `${currentPortalRole} Portal`; getEl('role-selection-panel').classList.add('hidden'); getEl('auth-choice-panel').classList.remove('hidden'); getEl('auth-forms-panel').classList.add('hidden'); };
@@ -29,7 +29,29 @@
         const handleLogout = () => { loggedInUser = null; clearInterval(clockInterval); getEl('app-container').classList.add('hidden'); getEl('landing-container').classList.remove('hidden'); showRoleSelection(); };
 
         // ========= CORE APPLICATION RENDERING =========
-        const renderAppShell = () => { getEl('app-container').innerHTML = `<div class="flex h-full max-w-7xl mx-auto"><nav id="sidebar" class="w-64 bg-[var(--md-sys-color-surface-variant)] rounded-3xl flex flex-col p-4"><div class="flex items-center gap-4 p-2 mb-6"><img src="https://i.pravatar.cc/150?u=${loggedInUser.email}" alt="Avatar" class="w-12 h-12 rounded-full"><div><p class="font-bold text-lg">${loggedInUser.name}</p><p class="text-sm">Role: ${loggedInUser.role}</p></div></div><ul id="nav-links" class="flex flex-col gap-2 flex-grow"></ul><button onclick="handleLogout()" class="mt-auto w-full flex items-center justify-center gap-3 py-3 px-4 text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary-container)] rounded-full transition-colors"><span class="material-symbols-outlined">logout</span><span class="font-semibold">Logout</span></button></nav><main id="main-content-area" class="flex-1 p-8 overflow-y-auto"></main></div>`; renderNavLinks(); };
+        const renderAppShell = () => {
+            getEl('app-container').innerHTML = 
+                `<div class="flex h-full max-w-7xl mx-auto">
+                    <nav id="sidebar" class="w-64 bg-[var(--md-sys-color-surface-variant)] rounded-3xl flex flex-col p-4">
+                        <div class="flex items-center gap-4 p-2 mb-6">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-[var(--md-sys-color-primary-container)]">
+                                <span class="material-symbols-outlined text-4xl text-[var(--md-sys-color-primary)]">account_circle</span>
+                            </div>
+                            <div>
+                                <p class="font-bold text-lg">${loggedInUser.name}</p>
+                                <p class="text-sm">Role: ${loggedInUser.role}</p>
+                            </div>
+                        </div>
+                        <ul id="nav-links" class="flex flex-col gap-2 flex-grow"></ul>
+                        <button onclick="handleLogout()" class="mt-auto w-full flex items-center justify-center gap-3 py-3 px-4 text-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary-container)] rounded-full transition-colors">
+                            <span class="material-symbols-outlined">logout</span><span class="font-semibold">Logout</span>
+                        </button>
+                    </nav>
+                    <main id="main-content-area" class="flex-1 p-8 overflow-y-auto"></main>
+                </div>`;
+            renderNavLinks(); 
+        };
+
         const renderNavLinks = () => { const navConfig = {'Student': [{ id: 'dashboard', icon: 'dashboard', text: 'Dashboard' }], 'Faculty': [{ id: 'dashboard', icon: 'dashboard', text: 'Dashboard' }, { id: 'roster', icon: 'groups', text: 'Class Roster'}, { id: 'usermanagement', icon: 'manage_accounts', text: 'User Management' }]}; const links = navConfig[loggedInUser.role]; getEl('nav-links').innerHTML = links.map(link => `<li><a href="#" onclick="switchView('${link.id}', this)" class="nav-link flex items-center gap-3 p-3 rounded-full text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-primary-container)] transition-colors"><span class="material-symbols-outlined">${link.icon}</span><span class="font-medium">${link.text}</span></a></li>`).join(''); };
         
         // ========= VIEW AND CONTENT SWITCHING =========
@@ -65,7 +87,6 @@
             attendanceRecords.push(record);
             renderStudentSchedule();
         };
-
         const renderStudentSchedule = () => {
             const container = getEl('student-schedule-container'); if(!container) return; const today = new Date().toDateString();
             container.innerHTML = classSchedule.map(subject => {
@@ -104,25 +125,20 @@
              } else { notificationsContainer.innerHTML = `<p class="text-gray-500 italic">No new notifications.</p>`; }
         };
         const renderFacultyRoster = () => { updateAbsences(); const tbody = getEl('roster-table-body'); if(!tbody) return; const students = users.filter(u => u.role === 'Student'); const today = new Date().toDateString(); tbody.innerHTML = students.map(student => { const record = attendanceRecords.find(r => r.studentId === student.id && r.subjectId === 1 && r.date === today); const status = record ? record.status : 'Upcoming'; const colorMap = { Present: 'text-green-600', Late: 'text-yellow-600', Absent: 'text-red-600', Upcoming: 'text-gray-500' }; return `<tr><td class="p-4">${student.name}</td><td class="p-4">${student.email}</td><td class="p-4 font-bold ${colorMap[status]}">${status}</td></tr>`; }).join(''); };
-
-        // ========= USER MANAGEMENT AND MODAL LOGIC =========
         const renderUserManagement = (tab = 'Students') => {
             const contentDiv = getEl('user-management-content'); if(!contentDiv) return;
             getEl('tab-students').classList.toggle('active', tab === 'Students'); getEl('tab-faculty').classList.toggle('active', tab === 'Faculty');
             let tableHTML = `<div class="bg-[var(--md-sys-color-surface-variant)] rounded-2xl p-4 overflow-x-auto"><table class="w-full text-left"><thead><tr class="border-b-2"><th class="p-4">Name</th><th class="p-4">Email</th><th class="p-4 text-center">Actions</th></tr></thead><tbody>`;
-            if (tab === 'Students') {
-                const students = users.filter(user => user.role === 'Student');
-                tableHTML += students.map(u => `<tr data-user-id="${u.id}"><td class="p-4">${u.name}</td><td class="p-4">${u.email}</td><td class="p-4 text-center"><button onclick="openUserModal(this)" class="p-2 rounded-full"><span class="material-symbols-outlined">edit</span></button><button onclick="handleDeleteRow(this,'user')" class="p-2 rounded-full"><span class="material-symbols-outlined">delete</span></button></td></tr>`).join('');
-            } else {
-                const faculties = users.filter(user => user.role === 'Faculty');
-                tableHTML += faculties.map(u => `<tr data-user-id="${u.id}"><td class="p-4">${u.name}</td><td class="p-4">${u.email}</td><td class="p-4 text-center text-gray-400 italic">No actions available</td></tr>`).join('');
-            }
+            if (tab === 'Students') { const students = users.filter(user => user.role === 'Student'); tableHTML += students.map(u => `<tr data-user-id="${u.id}"><td class="p-4">${u.name}</td><td class="p-4">${u.email}</td><td class="p-4 text-center"><button onclick="openUserModal(this)" class="p-2 rounded-full"><span class="material-symbols-outlined">edit</span></button><button onclick="handleDeleteRow(this,'user')" class="p-2 rounded-full"><span class="material-symbols-outlined">delete</span></button></td></tr>`).join('');
+            } else { const faculties = users.filter(user => user.role === 'Faculty'); tableHTML += faculties.map(u => `<tr data-user-id="${u.id}"><td class="p-4">${u.name}</td><td class="p-4">${u.email}</td><td class="p-4 text-center text-gray-400 italic">No actions available</td></tr>`).join(''); }
             tableHTML += '</tbody></table></div>';
             contentDiv.innerHTML = tableHTML;
         };
+        
+        // ========= MODAL & ACTION HANDLERS =========
         const handleDeleteRow = (button) => { const row = button.closest('tr'); row.classList.add('fade-out'); setTimeout(() => { users = users.filter(u => u.id != row.dataset.userId); switchView(activeView, document.querySelector(`.nav-link[onclick*="'${activeView}'"]`)); }, 300); };
-        const openUserModal = (button) => { editingUserRow = button ? button.closest('tr') : null; getEl('modal-title').innerText = button ? 'Edit User' : 'Add New User'; if (button) { const user = users.find(u => u.id == editingUserRow.dataset.userId); getEl('modal-name').value = user.name; getEl('modal-email').value = user.email; getEl('modal-role').value = user.role; } else getEl('user-modal').querySelector('form').reset(); userModal.classList.add('active'); };
-        const closeUserModal = () => userModal.classList.remove('active');
+        const openUserModal = (button) => { editingUserRow = button ? button.closest('tr') : null; getEl('modal-title').innerText = button ? 'Edit User' : 'Add New User'; if (button) { const user = users.find(u => u.id == editingUserRow.dataset.userId); getEl('modal-name').value = user.name; getEl('modal-email').value = user.email; getEl('modal-role').value = user.role; } else getEl('user-modal').querySelector('form').reset(); getEl('user-modal').classList.add('active'); };
+        const closeUserModal = () => getEl('user-modal').classList.remove('active');
         const handleSaveUser = (e) => { e.preventDefault(); const name = getEl('modal-name').value; const email = getEl('modal-email').value; const role = getEl('modal-role').value; if (editingUserRow) { const userIndex = users.findIndex(u => u.id == editingUserRow.dataset.userId); users[userIndex] = { ...users[userIndex], name, email, role }; } else users.push({ id: Date.now(), name, email, role }); switchView('usermanagement', document.querySelector(`.nav-link[onclick*="'usermanagement'"]`)); closeUserModal(); };
 
         // ========= INITIALIZATION =========
