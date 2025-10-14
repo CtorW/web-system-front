@@ -8,35 +8,36 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body class="w-full min-h-screen">
 
     <!-- ========= LANDING PAGE ========= -->
-    <div id="landing-container" class="w-full h-screen flex">
-        <div class="hidden lg:block w-3/5 h-full bg-cover bg-center" style="background-image: url('assets/main.png')"></div>
-        <div class="w-full lg:w-2/5 h-full flex items-center justify-center bg-gray-100/50 backdrop-blur-sm">
-             <div class="w-full max-w-sm px-4">
-                <img src="assets/logo_college.png" alt="PUP Logo" class="w-24 h-24 mx-auto mb-6">
-                <div id="landing-panel">
-                    <div id="role-selection-panel"><div class="flex flex-col gap-4"><button onclick="showAuthChoice('Student')" class="w-full text-left p-4 bg-[var(--md-sys-color-primary)] text-white font-bold rounded-lg shadow-md hover:bg-purple-800 transition transform hover:scale-105">Student Portal</button><button onclick="showAuthChoice('Faculty')" class="w-full text-left p-4 bg-gray-600 text-white font-bold rounded-lg shadow-md hover:bg-gray-700 transition transform hover:scale-105">Faculty Portal</button></div></div>
-                    <div id="auth-choice-panel" class="hidden"><h2 id="auth-choice-title" class="text-2xl font-bold text-center mb-4"></h2><div class="flex flex-col gap-4"><button onclick="showAuthForm('login')" class="w-full p-4 bg-[var(--md-sys-color-primary)] text-white font-bold rounded-lg shadow-md hover:bg-purple-800 transition">Log In</button><button onclick="showAuthForm('signup')" class="w-full p-4 bg-gray-100 text-gray-800 font-bold rounded-lg shadow-inner hover:bg-gray-200 transition">Sign Up</button></div><button onclick="showRoleSelection()" class="w-full mt-6 text-sm text-gray-600">Back to Portal Selection</button></div>
-                    <div id="auth-forms-panel" class="hidden">
-                        <form id="login-form" onsubmit="handleLogIn(event)"><h2 id="login-title" class="text-2xl font-bold text-center"></h2><div id="login-error" class="mt-4 text-center text-red-600 hidden"></div><div class="form-group"><input type="email" id="login-email" class="form-input" placeholder=" " required><label class="form-label">School Email</label></div><div class="form-group"><input type="password" class="form-input" placeholder=" " required><label class="form-label">Password</label></div><button type="submit" class="w-full mt-8 py-3 bg-[var(--md-sys-color-primary)] text-white rounded-full font-semibold btn-ripple">Log In</button></form>
-                        <form id="signup-form" onsubmit="handleSignUp(event)"><h2 id="signup-title" class="text-2xl font-bold text-center"></h2><div id="signup-error" class="mt-4 text-center text-red-600 hidden"></div><div class="form-group"><input type="text" id="signup-name" class="form-input" placeholder=" " required><label class="form-label">Full Name</label></div><div class="form-group"><input type="email" id="signup-email" class="form-input" placeholder=" " required><label class="form-label">School Email</label></div><div class="form-group"><input type="password" class="form-input" placeholder=" " required><label class="form-label">Password</label></div><button type="submit" class="w-full mt-8 py-3 bg-[var(--md-sys-color-primary)] text-white rounded-full font-semibold btn-ripple">Create Account</button></form>
-                        <button onclick="showAuthChoice()" class="w-full mt-4 text-sm text-gray-600">Back</button>
-                    </div>
+    <div id="landing-container" class="w-full h-screen relative flex items-center justify-center p-4">
+        <!-- Background Image -->
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center z-0" style="background-image: url('assets/mainmian.png')"></div>
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black/50 z-10"></div>
+        
+        <div class="relative z-20 w-full max-w-sm p-8 bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl">
+            <img src="assets/logo_college.png" alt="PUP Logo" class="w-24 h-24 mx-auto mb-6">
+            <div id="landing-panel">
+                <div id="role-selection-panel"><div class="flex flex-col gap-4"><button onclick="showAuthChoice('Student')" class="w-full text-left p-4 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition transform hover:scale-105">Student Portal</button><button onclick="showAuthChoice('Faculty')" class="w-full text-left p-4 bg-gray-700 text-white font-bold rounded-lg shadow-md hover:bg-gray-800 transition transform hover:scale-105">Faculty Portal</button></div></div>
+                <div id="auth-choice-panel" class="hidden"><h2 id="auth-choice-title" class="text-3xl font-bold text-center mb-6 text-gray-800"></h2><div class="flex flex-col gap-4"><button onclick="showAuthForm('login')" class="w-full p-4 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold rounded-lg shadow-md hover:from-purple-600 hover:to-indigo-600 transition">Log In</button><button onclick="showAuthForm('signup')" class="w-full p-4 bg-gray-200 text-gray-800 font-bold rounded-lg shadow-inner hover:bg-gray-300 transition">Sign Up</button></div><button onclick="showRoleSelection()" class="w-full mt-6 text-sm text-gray-600 hover:underline">Back to Portal Selection</button></div>
+                <div id="auth-forms-panel" class="hidden">
+                    <form id="login-form" onsubmit="handleLogIn(event)"><h2 id="login-title" class="text-3xl font-bold text-center mb-2 text-gray-800"></h2><p class="text-center text-gray-500 mb-6">Welcome back!</p><div id="login-error" class="mt-4 text-center text-red-600 hidden"></div><div class="form-group"><input type="email" id="login-email" class="form-input" placeholder=" " required><label class="form-label">School Email</label></div><div class="form-group"><input type="password" class="form-input" placeholder=" " required><label class="form-label">Password</label></div><button type="submit" class="w-full mt-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-full font-semibold btn-ripple shadow-lg">Log In</button></form>
+                    <form id="signup-form" onsubmit="handleSignUp(event)"><h2 id="signup-title" class="text-3xl font-bold text-center mb-2 text-gray-800"></h2><p class="text-center text-gray-500 mb-6">Create your account</p><div id="signup-error" class="mt-4 text-center text-red-600 hidden"></div><div class="form-group"><input type="text" id="signup-name" class="form-input" placeholder=" " required><label class="form-label">Full Name</label></div><div class="form-group"><input type="email" id="signup-email" class="form-input" placeholder=" " required><label class="form-label">School Email</label></div><div class="form-group"><input type="password" class="form-input" placeholder=" " required><label class="form-label">Password</label></div><button type="submit" class="w-full mt-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-full font-semibold btn-ripple shadow-lg">Create Account</button></form>
+                    <button onclick="showAuthChoice()" class="w-full mt-4 text-sm text-gray-600 hover:underline">Back</button>
                 </div>
-                <p class="text-xs text-gray-500 mt-8 text-center">By using this service, you agree to the <a href="#" class="text-blue-600 underline">Terms of Use</a> and <a href="#" class="text-blue-600 underline">Privacy Statement</a></p>
             </div>
+            <p class="text-xs text-gray-600 mt-8 text-center">By using this service, you agree to the <a href="#" class="text-indigo-600 underline">Terms of Use</a> and <a href="#" class="text-indigo-600 underline">Privacy Statement</a></p>
         </div>
     </div>
     
-    <div id="app-container" class="hidden h-screen w-full p-4 bg-[var(--md-sys-color-surface)]"></div>
+    <div id="app-container" class="hidden h-screen w-full p-4 bg-gray-50"></div>
     
-    <div id="user-modal" class="modal-overlay"><div class="modal-panel"><h2 id="modal-title" class="text-2xl font-bold mb-6"></h2><form onsubmit="handleSaveUser(event)"><div class="form-group"><input type="text" id="modal-name" class="form-input" placeholder=" " required><label class="form-label">Full Name</label></div><div class="form-group mt-6"><input type="email" id="modal-email" class="form-input" placeholder=" " required><label class="form-label">Email</label></div><div class="mt-6"><label>Role</label><select id="modal-role" class="w-full p-2 mt-1 rounded-md border border-[var(--md-sys-color-outline)]"><option>Student</option><option>Faculty</option></select></div><div class="flex justify-end gap-4 mt-8"><button type="button" onclick="closeUserModal()" class="px-6 py-2 rounded-full hover:bg-[var(--md-sys-color-surface-variant)]">Cancel</button><button type="submit" class="px-6 py-2 bg-[var(--md-sys-color-primary)] text-white rounded-full btn-ripple">Save</button></div></form></div></div>
+    <div id="user-modal" class="modal-overlay"><div class="modal-panel"><h2 id="modal-title" class="text-2xl font-bold mb-6"></h2><form onsubmit="handleSaveUser(event)"><div class="form-group"><input type="text" id="modal-name" class="form-input" placeholder=" " required><label class="form-label">Full Name</label></div><div class="form-group mt-6"><input type="email" id="modal-email" class="form-input" placeholder=" " required><label class="form-label">Email</label></div><div class="mt-6"><label>Role</label><select id="modal-role" class="w-full p-2 mt-1 rounded-md border border-[var(--md-sys-color-outline)]"><option>Student</option><option>Faculty</option></select></div><div class="flex justify-end gap-4 mt-8"><button type="button" onclick="closeUserModal()" class="px-6 py-2 rounded-full hover:bg-gray-200">Cancel</button><button type="submit" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-full btn-ripple">Save</button></div></form></div></div>
     <script src="src/main.js"></script>
 </body>
 </html>

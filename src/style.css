@@ -1,38 +1,121 @@
 :root {
---md-sys-color-primary: #6750A4;
---md-sys-color-on-primary: #FFFFFF;
---md-sys-color-primary-container: #EADDFF;
---md-sys-color-on-primary-container: #21005D;
---md-sys-color-secondary: #625B71;
---md-sys-color-secondary-container: #E8DEF8;
---md-sys-color-on-secondary-container: #1D192B;
---md-sys-color-background: #FFFBFE;
---md-sys-color-on-background: #1C1B1F;
---md-sys-color-surface: #FFFBFE;
---md-sys-color-on-surface: #1C1B1F;
---md-sys-color-surface-variant: #E7E0EC;
---md-sys-color-on-surface-variant: #49454F;
---md-sys-color-outline: #79747E;
---md-sys-color-error: #B3261E;
---md-sys-color-error-container: #F9DEDC;
---md-sys-color-on-error-container: #410E0B;
---md-sys-motion-easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
---md-sys-motion-duration-medium: 300ms;
+  --md-sys-color-primary: #7c4dff;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #eaddff;
+  --md-sys-color-on-primary-container: #21005d;
+  --md-sys-color-secondary: #625b71;
+  --md-sys-color-secondary-container: #e8def8;
+  --md-sys-color-on-secondary-container: #1d192b;
+  --md-sys-color-background: #fffbfe;
+  --md-sys-color-on-background: #1c1b1f;
+  --md-sys-color-surface: #fffbfe;
+  --md-sys-color-on-surface: #1c1b1f;
+  --md-sys-color-surface-variant: #e7e0ec;
+  --md-sys-color-on-surface-variant: #49454f;
+  --md-sys-color-outline: #79747e;
+  --md-sys-color-error: #b3261e;
+  --md-sys-color-error-container: #f9dedc;
+  --md-sys-color-on-error-container: #410e0b;
+  --md-sys-motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --md-sys-motion-duration-medium: 300ms;
 }
-body { font-family: 'Roboto', sans-serif; background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); }
-.btn-ripple{ background-position: center; transition: background 0.5s; }
-.btn-ripple:hover{ background: var(--md-sys-color-primary) radial-gradient(circle, transparent 1%, var(--md-sys-color-primary) 1%) center/15000%; }
-.btn-ripple:active{ background-color: var(--md-sys-color-primary-container); background-size: 100%; transition: background 0s; }
-.form-group{ position: relative; margin-top: 1.5rem; }
-.form-input{ width: 100%; border: none; border-bottom: 1px solid var(--md-sys-color-outline); background: transparent; padding: 8px 4px; font-size: 1rem; transition: border-color .2s; }
-.form-input:focus{ outline: none; border-bottom: 2px solid var(--md-sys-color-primary); }
-.form-label{ position: absolute; top: 8px; left: 4px; color: var(--md-sys-color-on-surface-variant); pointer-events: none; transition: all .2s; }
-.form-input:focus ~ .form-label, .form-input:not(:placeholder-shown) ~ .form-label { top: -16px; font-size: 0.75rem; color: var(--md-sys-color-primary); }
-.view-container { animation: fadeIn var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.fade-out { transition: opacity 300ms ease-out; opacity: 0; }
-.modal-overlay { position: fixed; inset: 0; background-color: rgba(0,0,0,0.5); z-index: 40; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s; }
-.modal-overlay.active { opacity: 1; pointer-events: auto; }
-.modal-panel { background-color: var(--md-sys-color-surface); padding: 2rem; border-radius: 28px; width: 90%; max-width: 500px; transform: scale(0.95); transition: transform .3s; }
-.modal-overlay.active .modal-panel { transform: scale(1); }
-.tab-button.active { border-color: var(--md-sys-color-primary); color: var(--md-sys-color-primary); }
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+.btn-ripple {
+  background-position: center;
+  transition: background 0.5s;
+}
+.btn-ripple:hover {
+  background: var(--md-sys-color-primary)
+    radial-gradient(circle, transparent 1%, var(--md-sys-color-primary) 1%)
+    center/15000%;
+}
+.btn-ripple:active {
+  background-color: var(--md-sys-color-primary-container);
+  background-size: 100%;
+  transition: background 0s;
+}
+.form-group {
+  position: relative;
+  margin-top: 1.5rem;
+}
+.form-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--md-sys-color-outline);
+  background: transparent;
+  padding: 8px 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.form-input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--md-sys-color-primary);
+}
+.form-label {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  color: var(--md-sys-color-on-surface-variant);
+  pointer-events: none;
+  transition: all 0.2s;
+}
+.form-input:focus ~ .form-label,
+.form-input:not(:placeholder-shown) ~ .form-label {
+  top: -16px;
+  font-size: 0.75rem;
+  color: var(--md-sys-color-primary);
+}
+.view-container {
+  animation: fadeIn var(--md-sys-motion-duration-medium)
+    var(--md-sys-motion-easing-standard);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-out {
+  transition: opacity 300ms ease-out;
+  opacity: 0;
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-panel {
+  background-color: var(--md-sys-color-surface);
+  padding: 2rem;
+  border-radius: 28px;
+  width: 90%;
+  max-width: 500px;
+  transform: scale(0.95);
+  transition: transform 0.3s;
+}
+.modal-overlay.active .modal-panel {
+  transform: scale(1);
+}
+.tab-button.active {
+  border-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-primary);
+}
